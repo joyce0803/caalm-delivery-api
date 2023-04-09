@@ -1,13 +1,13 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-const cors=require('cors')
+// const cors=require('cors')
 const Menus=require('../models/menu.model')
 const Restaurents=require('../models/restaurents.model')
 
 router.use(express.json({ extended: true }))
 router.use( bodyParser.urlencoded({extended : true }));
-router.use(cors())
+// router.use(cors())
 
 
 

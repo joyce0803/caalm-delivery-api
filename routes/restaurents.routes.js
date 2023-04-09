@@ -5,13 +5,13 @@ var bodyParser = require('body-parser')
 const fileUpload=require('express-fileupload')
 const cloudinary=require('cloudinary').v2
 const Restaurents=require('../models/restaurents.model')
-const cors=require('cors')
+// const cors=require('cors')
 
 router.use(express.json({ extended: true }))
 router.use(fileUpload({
     useTempFiles:true
 })) 
-router.use(cors())
+// router.use(cors())
 router.use( bodyParser.urlencoded({extended : true }));
 
 
