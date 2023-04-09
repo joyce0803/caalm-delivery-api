@@ -1,17 +1,14 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-const cors=require('cors');
+
 const Menus=require('../models/menu.model')
 const Restaurents=require('../models/restaurents.model')
 
 router.use(express.json({ extended: true }))
 router.use( bodyParser.urlencoded({extended : true }));
-router.use(cors());
-router.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*");
-    next();
-});
+
+
 
 
 ///get all menu
@@ -33,6 +30,10 @@ router.get('/',async(req,res) => {
     }
 })
 
+
+router.get('/:rest_id',getById,(req,res) => {
+    res.json(res.Id)
+})
 
 ///get by dish type
 router.get('/:dish_type',getByType,(req,res) => {
@@ -132,8 +133,9 @@ async function getMenuToDelete(req,res,next){
 }
 
 async function checkRestaurentExists(req,res,next){
+    let restaurent
     try{
-        const restaurent=await Restaurents.findOne({rest_id:req.body.rest_id})
+        restaurent=await Restaurents.findOne({rest_id:req.body.rest_id})
         if(!restaurent){
             return res.status(404).json({message:'No such Restaurent ID available so cant post menu'})
         }
@@ -141,6 +143,22 @@ async function checkRestaurentExists(req,res,next){
     catch(err){
         res.status(500).json({message:err.message})
     }
+    res.restaurent=restaurent
+    next()
+}
+
+async function getById(req,res,next){
+    let Id
+    try{
+        Id=await Menus.find({rest_id:{$eq:req.params.rest_id}})
+        if(!Id){
+            return res.status(404).json({message:'No such Restaurent ID available so cant post menu'})
+        }
+    }
+    catch(err){
+        res.status(500).json({message:err.message})
+    }
+    res.Id=Id
     next()
 }
 

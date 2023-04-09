@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-const cors=require('cors');
+
 const fileUpload=require('express-fileupload')
 const cloudinary=require('cloudinary').v2
 const Photos=require('../models/photos.model')
@@ -22,11 +22,8 @@ router.use(
       parameterLimit: 50000,
     })
 );
-router.use(cors());
-router.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*");
-    next();
-});
+
+
 router.use(
     fileUpload({
       useTempFiles: true,

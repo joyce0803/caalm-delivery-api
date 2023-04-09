@@ -1,16 +1,13 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-const cors=require('cors');
+
 const Orders=require('../models/orders.model')
 
 router.use(express.json({ extended: true }))
 router.use( bodyParser.urlencoded({extended : true }));
-router.use(cors());
-router.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*");
-    next();
-});
+
+
 
 
 ////get all orders

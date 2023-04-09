@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-const cors=require('cors');
+
 const fileUpload=require('express-fileupload')
 const cloudinary=require('cloudinary').v2
 const Restaurents=require('../models/restaurents.model')
@@ -11,11 +11,8 @@ router.use(fileUpload({
     useTempFiles:true
 })) 
 router.use( bodyParser.urlencoded({extended : true }));
-router.use(cors());
-router.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin","*");
-    next();
-});
+
+
 
 cloudinary.config({
     cloud_name:'dnaf2h3rw',
