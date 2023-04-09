@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 var bodyParser = require('body-parser')
-
+const cors=require('cors')
 const fileUpload=require('express-fileupload')
 const cloudinary=require('cloudinary').v2
 const Photos=require('../models/photos.model')
@@ -12,7 +12,7 @@ cloudinary.config({
     api_key:'123954613469549',
     api_secret:'rvC66mX_CFuQFksACYI8iUja8tY'
 })  
-
+router.use(cors())
 router.use(express.json({ extended: true }))
 router.use(bodyParser.json({ limit: "50mb" })); // support json encoded bodies
 router.use(
