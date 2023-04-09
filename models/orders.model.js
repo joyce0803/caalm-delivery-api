@@ -7,6 +7,9 @@ const OrderSchema=new mongoose.Schema({
     },
     total_orders:{
         type:Number
+    },
+    phone_no:{
+        type:String
     }
 })
 

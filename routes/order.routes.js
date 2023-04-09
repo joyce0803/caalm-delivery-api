@@ -21,6 +21,7 @@ router.get('/',async(req,res) => {
         const order_list=await Orders.find({
             $or:[
                 {ordered_items_name:searchRegex},
+                {phone_no:searchRegex}
                 // {total_orders:searchRegex},
             ]
         })
@@ -31,12 +32,20 @@ router.get('/',async(req,res) => {
     }
 })
 
+
+///get by phone no
+router.get('/:phone_no',getByPhoneNo,async(req,res) => {
+    res.json(res.phone)
+
+})
+
 router.post('/',async(req,res) => {
     console.log(req.body)
 
     const order_upload=new Orders({
         ordered_items_name:req.body.ordered_items_name,
-        total_orders:req.body.total_orders
+        total_orders:req.body.total_orders,
+        phone_no:req.body.phone_no
     })
     try{
         const new_order=await order_upload.save()
@@ -53,6 +62,9 @@ router.patch('/:_id',getOrderToUpdate,async(req,res) => {
     }
     if(req.body.total_orders!=null){
         res.order.total_orders=req.body.total_orders
+    }
+    if(req.body.phone_no!=null){
+        res.order.phone_no=req.body.phone_no
     }
     try{
         const updatedOrder=await res.order.save()
@@ -88,6 +100,24 @@ async function getOrderToUpdate(req,res,next){
         return res.status(500).json({message:err.message})
     }
     res.order=order
+    next()
+}
+
+async function getByPhoneNo(req,res,next){
+    let phone
+    try{
+        phone=await Orders.find({phone_no:{$eq:req.params.phone_no}})
+        if(phone==null){
+            return res.status(404).json({message:"No such Order ID"})
+        }
+    }
+    catch(err){
+        if(phone==undefined){
+            return res.status(404).json({message:'No such Order ID available'})
+        }
+        return res.status(500).json({message:err.message})
+    }
+    res.phone=phone
     next()
 }
 
