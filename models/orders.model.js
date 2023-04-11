@@ -10,6 +10,15 @@ const OrderSchema=new mongoose.Schema({
     },
     phone_no:{
         type:String
+    },
+    rest_id:{
+        type:String
+    },
+    menu_id:{
+        type:String
+    },
+    other_details:{
+        type:Object
     }
 })
 

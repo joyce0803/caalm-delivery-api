@@ -18,7 +18,10 @@ router.get('/',async(req,res) => {
         const order_list=await Orders.find({
             $or:[
                 {ordered_items_name:searchRegex},
-                {phone_no:searchRegex}
+                {phone_no:searchRegex},
+                {rest_id:searchRegex},
+                {menu_id:searchRegex},
+                {other_details:searchRegex}
                 // {total_orders:searchRegex},
             ]
         })
@@ -42,7 +45,11 @@ router.post('/',async(req,res) => {
     const order_upload=new Orders({
         ordered_items_name:req.body.ordered_items_name,
         total_orders:req.body.total_orders,
-        phone_no:req.body.phone_no
+        phone_no:req.body.phone_no,
+        rest_id:req.body.rest_id,
+        menu_id:req.body.menu_id,
+        other_details:req.body.other_details
+
     })
     try{
         const new_order=await order_upload.save()
@@ -62,6 +69,15 @@ router.patch('/:_id',getOrderToUpdate,async(req,res) => {
     }
     if(req.body.phone_no!=null){
         res.order.phone_no=req.body.phone_no
+    }
+    if(req.body.rest_id!=null){
+        res.order.res_id=req.body.rest_id
+    }
+    if(req.body.menu_id!=null){
+        res.order.menu_id=req.body.menu_id
+    }
+    if(req.body.other_details!=null){
+        res.order.other_details=req.body.other_details
     }
     try{
         const updatedOrder=await res.order.save()
