@@ -17,6 +17,9 @@ const OrderSchema=new mongoose.Schema({
     menu_id:{
         type:String
     },
+    order_status:{
+        type:String
+    },
     other_details:{
         type:Object
     }
