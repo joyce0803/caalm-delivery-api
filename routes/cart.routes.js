@@ -52,8 +52,8 @@ router.get('/', async(req,res) => {
 
 
 router.post('/',async(req,res) => {
-    const {menu_id,quantity}=req.body;
-    const owner=req.body.owner
+    const {menu_id,quantity,rest_name}=req.body;
+    const owner=req.body.owner 
     try{
         const cart=await Cart.findOne({owner})
         const item=await Menus.findOne({_id:menu_id})
@@ -70,27 +70,37 @@ router.post('/',async(req,res) => {
             if(itemIndex > -1){
                 let product=cart.items[itemIndex];
                 product.quantity += quantity;  
+                cart.bill = cart.items.reduce((acc, curr) => {
+                    return acc + curr.quantity * curr.price;
+                },0) 
                 cart.items[itemIndex] = product;
                 await cart.save();
                 res.status(200).json(cart);
             }
             else{
-                cart.items.push({ menu_id, name, quantity, price });
+                cart.items.push({ menu_id, name, quantity, price, rest_name });
+                cart.bill = cart.items.reduce((acc, curr) => {
+                    return acc + curr.quantity * curr.price;
+                 },0)
                 await cart.save();
                 res.status(200).send(cart);
             }
         }
         else{
+            
             const cart_upload=new Cart({
                 owner:req.body.owner,
                 items:[{
+                    rest_name:req.body.rest_name,
                     menu_id:req.body.menu_id,
                     name:req.body.name,
                     quantity:req.body.quantity,
                     price:req.body.price,
-                    bill: quantity * price
-                }]
+                    
+                }],
+                bill: (quantity * price)
             })
+           
             const new_cart=await cart_upload.save()
             res.status(201).json(new_cart)
         }
@@ -115,12 +125,18 @@ router.delete('/:owner/:menu_id',async(req,res) => {
             if(product.quantity >1){
                 product.quantity--;
                 cart.items[itemIndex]=product;
+                cart.bill = cart.items.reduce((acc, curr) => {
+                    return acc + curr.quantity * curr.price;
+                }, 0);
                 cart=await cart.save();
                 res.status(200).json(cart)
             }
             else{
                 cart.items.splice(itemIndex,1);
-                cart=await cart.save()
+                cart.bill = cart.items.reduce((acc, curr) => {
+                    return acc + curr.quantity * curr.price;
+                }, 0);
+                cart=await cart.deleteOne()
                 res.status(200).json(cart)
             }
  

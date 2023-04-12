@@ -29,6 +29,9 @@ const CartSchema=new mongoose.Schema({
         // default:shortid.generate
     },
     items:[{
+        rest_name:{
+            type:String,
+        },
         menu_id:{
             type:String,
             ref:'Menus'
