@@ -14,7 +14,10 @@ const MenuSchema=new mongoose.Schema({
     dish_type:{
         type:String,
         lowercase: true
-    }
+    },
+
 })
+
+
 
 module.exports=mongoose.model('Menus',MenuSchema)

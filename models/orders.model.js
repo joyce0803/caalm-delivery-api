@@ -15,14 +15,21 @@ const OrderSchema=new mongoose.Schema({
         type:String
     },
     menu_id:{
-        type:String
+        type:String,
+        // ref:'Menus'
     },
     order_status:{
         type:String
     },
     other_details:{
-        type:Object
-    }
+        type:String
+    },
+   
 })
+
+
+
+
+
 
 module.exports=mongoose.model('Orders',OrderSchema)

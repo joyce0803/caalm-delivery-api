@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 
 const Orders=require('../models/orders.model')
 
+
 router.use(express.json({ extended: true }))
 router.use( bodyParser.urlencoded({extended : true }));
 
@@ -27,6 +28,8 @@ router.get('/',async(req,res) => {
             ]
         })
         res.status(200).json(order_list)
+
+        
     }
     catch(err){
         res.status(500).json({message:err.message})
