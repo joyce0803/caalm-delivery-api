@@ -133,14 +133,18 @@ router.delete('/:owner/:menu_id',async(req,res) => {
             }
             else{
                 cart.items.splice(itemIndex,1);
-                cart.bill = cart.items.reduce((acc, curr) => {
-                    return acc + curr.quantity * curr.price;
-                }, 0);
-                cart=await cart.deleteOne()
-                res.status(200).json(cart)
+                if(cart.items.length === 0){
+                    await Cart.findOneAndDelete({owner:{$eq:req.params.owner}})
+                    res.status(200).send('Cart is empty and owner deleted successfully')
+                }
+                else{
+                    cart.bill = cart.items.reduce((acc, curr) => {
+                        return acc + curr.quantity * curr.price;
+                    }, 0);
+                    cart=await cart.save()
+                    res.status(200).json(cart)
+                }
             }
- 
-             
         }
         else{
             res.status(404).send("item not found");
