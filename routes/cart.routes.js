@@ -133,17 +133,17 @@ router.delete('/:owner/:menu_id',async(req,res) => {
             }
             else{
                 cart.items.splice(itemIndex,1);
-                if(cart.items.length === 0){
-                    await Cart.findOneAndDelete({owner:{$eq:req.params.owner}})
-                    res.status(200).send('Cart is empty and owner deleted successfully')
-                }
-                else{
+                // if(cart.items.length === 0){
+                //     await Cart.findOneAndDelete({owner:{$eq:req.params.owner}})
+                //     res.status(200).send('Cart is empty and owner deleted successfully')
+                // }
+                // else{
                     cart.bill = cart.items.reduce((acc, curr) => {
                         return acc + curr.quantity * curr.price;
                     }, 0);
                     cart=await cart.save()
                     res.status(200).json(cart)
-                }
+                // }
             }
         }
         else{
