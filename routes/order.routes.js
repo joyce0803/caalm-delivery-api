@@ -26,7 +26,7 @@ router.get('/',async(req,res) => {
                 {order_status:searchRegex},
                 {user_details:searchRegex},
                 {alternative_phno:searchRegex}
-                // {total_orders:searchRegex},
+                
             ]
         })
         res.status(200).json(order_list)
