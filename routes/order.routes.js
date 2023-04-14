@@ -57,7 +57,7 @@ router.post('/',async(req,res) => {
         menu_id:req.body.menu_id,
         order_details:req.body.order_details,
         order_status:req.body.order_status,
-        user_deatils:req.body.user_deatils,
+        user_details:req.body.user_details,
         total_price:req.body.total_price
 
     })
