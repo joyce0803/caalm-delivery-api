@@ -35,8 +35,8 @@ const OrderSchema=new mongoose.Schema({
         type:Number
     },
     order_pin:{
-        type:Number,
-        default:gpc(4)
+        type:String,
+        default:gpc(4) 
     }
    
 })
