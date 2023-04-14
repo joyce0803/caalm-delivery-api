@@ -22,8 +22,10 @@ router.get('/',async(req,res) => {
                 {phone_no:searchRegex},
                 {rest_id:searchRegex},
                 {menu_id:searchRegex},
-                {other_details:searchRegex},
-                {order_status:searchRegex}
+                {order_pin:searchRegex},
+                {order_status:searchRegex},
+                {user_details:searchRegex},
+                {alternative_phno:searchRegex}
                 // {total_orders:searchRegex},
             ]
         })
@@ -50,10 +52,13 @@ router.post('/',async(req,res) => {
         ordered_items_name:req.body.ordered_items_name,
         total_orders:req.body.total_orders,
         phone_no:req.body.phone_no,
+        alternative_phno:req.body.alternative_phno,
         rest_id:req.body.rest_id,
         menu_id:req.body.menu_id,
-        other_details:req.body.other_details,
-        order_status:req.body.order_status
+        order_details:req.body.order_details,
+        order_status:req.body.order_status,
+        user_deatils:req.body.user_deatils,
+        total_price:req.body.total_price
 
     })
     try{
@@ -81,11 +86,20 @@ router.patch('/:_id',getOrderToUpdate,async(req,res) => {
     if(req.body.menu_id!=null){
         res.order.menu_id=req.body.menu_id
     }
-    if(req.body.other_details!=null){
-        res.order.other_details=req.body.other_details
+    if(req.body.order_details!=null){
+        res.order.order_details=req.body.order_details
     }
     if(req.body.order_status!=null){
         res.order.order_status=req.body.order_status
+    }
+    if(req.body.user_deatils!=null){
+        res.order.user_deatils=req.body.user_deatils
+    }
+    if(req.body.total_price!=null){
+        res.order.total_price=req.body.total_price
+    }
+    if(req.body.alternative_phno!=null){
+        res.order.alternative_phno=req.body.alternative_phno
     }
     try{
         const updatedOrder=await res.order.save()
