@@ -37,6 +37,9 @@ app.use('/photos',PhotoRoutes)
 const CartRoutes=require('./routes/cart.routes')
 app.use('/cart',CartRoutes)
 
+const HostelRoutes=require('./routes/hostel.routes')
+app.use('/hostels',HostelRoutes)
+
 const port=process.env.PORT||3000;
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
