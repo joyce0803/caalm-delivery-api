@@ -14,7 +14,7 @@ router.get('/', async(req,res) => {
         const hostel_list=await Hostels.find({
             $or:[
                 {label:searchRegex},
-                {value:serachRegex}
+                {value:searchRegex}
             ]
         })
         res.status(200).json(hostel_list)   

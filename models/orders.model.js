@@ -36,9 +36,8 @@ const OrderSchema=new mongoose.Schema({
     },
     order_pin:{
         type:String,
-        default:Math.floor(100000+Math.random()*900000),
-        unique:true
-    },
+       
+    }, 
     timestamp:{
         type:Date,
         default:Date.now()

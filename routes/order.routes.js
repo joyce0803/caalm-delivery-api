@@ -64,7 +64,8 @@ router.post('/',async(req,res) => {
         order_details:req.body.order_details,
         order_status:req.body.order_status,
         user_details:req.body.user_details,
-        total_price:req.body.total_price
+        total_price:req.body.total_price,
+        order_pin:Math.floor(100000+Math.random()*900000)
 
     })
     try{
