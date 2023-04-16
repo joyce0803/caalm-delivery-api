@@ -13,7 +13,8 @@ router.get('/', async(req,res) => {
         const searchRegex=new RegExp(req.query.search,'i')
         const hostel_list=await Hostels.find({
             $or:[
-                {hostel_name:searchRegex},
+                {label:searchRegex},
+                {value:serachRegex}
             ]
         })
         res.status(200).json(hostel_list)   
@@ -27,7 +28,8 @@ router.post('/', async(req,res) => {
     console.log(req.body)
 
     const hostel_upload=new Hostels({
-        hostel_name:req.body.hostel_name,
+        label:req.body.label,
+        value:req.body.value
         
     })
     try{

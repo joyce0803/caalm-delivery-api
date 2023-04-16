@@ -2,8 +2,11 @@ const mongoose=require('mongoose')
 
 
 const HostelSchema=new mongoose.Schema({
-    hostel_name:{
+    label:{
         type:String,
+    },
+    value:{
+        type:String
     }
    
 })
