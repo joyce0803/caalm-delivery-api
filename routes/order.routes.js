@@ -16,7 +16,8 @@ router.get('/',async(req,res) => {
 
     try{
         const searchRegex=new RegExp(req.query.search,'i')
-        const order_list=await Orders.find({
+        const order_list=await Orders.find(
+            {
             $or:[
                 {ordered_items_name:searchRegex},
                 {phone_no:searchRegex},
@@ -25,10 +26,15 @@ router.get('/',async(req,res) => {
                 {order_pin:searchRegex},
                 {order_status:searchRegex},
                 {user_details:searchRegex},
-                {alternative_phno:searchRegex}
+                {alternative_phno:searchRegex},
+               
                 
-            ]
-        })
+            ],
+            
+        },
+        
+       null 
+    ) .sort('-timestamp')
         res.status(200).json(order_list)
 
         

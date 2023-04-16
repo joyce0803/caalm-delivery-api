@@ -1,5 +1,5 @@
 const mongoose=require('mongoose')
-const gpc = require('generate-pincode')
+
 
 const OrderSchema=new mongoose.Schema({
     ordered_items_name:{
@@ -36,8 +36,12 @@ const OrderSchema=new mongoose.Schema({
     },
     order_pin:{
         type:String,
-        default:gpc(4),
+        default:Math.floor(100000+Math.random()*900000),
         unique:true
+    },
+    timestamp:{
+        type:Date,
+        default:Date.now()
     }
    
 })
