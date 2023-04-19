@@ -15,7 +15,7 @@ const OrderSchema=new mongoose.Schema({
     alternative_phno:{
         type:String
     },
-    rest_id:{
+    rest_id:{ 
         type:String
     },
     menu_id:{
@@ -39,8 +39,12 @@ const OrderSchema=new mongoose.Schema({
        
     }, 
     timestamp:{
+        type: Date, required: true, default: Date.now
+        
+    },
+    confirmed_at:{
         type:Date,
-        default:Date.now()
+        default:""
     }
    
 })

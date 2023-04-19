@@ -3,6 +3,7 @@ const router=express.Router()
 var bodyParser = require('body-parser')
 
 const Orders=require('../models/orders.model')
+const Cart=require('../models/cart.model')
 
 
 router.use(express.json({ extended: true }))
@@ -54,6 +55,8 @@ router.get('/:phone_no',getByPhoneNo,async(req,res) => {
 router.post('/',async(req,res) => {
     console.log(req.body)
 
+
+
     const order_upload=new Orders({
         ordered_items_name:req.body.ordered_items_name,
         total_orders:req.body.total_orders,
@@ -65,11 +68,16 @@ router.post('/',async(req,res) => {
         order_status:req.body.order_status,
         user_details:req.body.user_details,
         total_price:req.body.total_price,
-        order_pin:Math.floor(100000+Math.random()*900000)
+        order_pin:Math.floor(100000+Math.random()*900000),
+        // timestamp:Date.now()
 
     })
     try{
+        const phone_no=req.body.phone_no
         const new_order=await order_upload.save()
+        const cart=await Cart.find({phone_no})
+        await Cart.findOneAndDelete(cart)
+         
         res.status(201).json(new_order)
     }
     catch(err){
@@ -78,36 +86,16 @@ router.post('/',async(req,res) => {
 })
 
 router.patch('/:_id',getOrderToUpdate,async(req,res) => {
-    if(req.body.ordered_items_name!=null){
-        res.order.ordered_items_name=req.body.ordered_items_name
-    }
-    if(req.body.total_orders!=null){
-        res.order.total_orders=req.body.total_orders
-    }
-    if(req.body.phone_no!=null){
-        res.order.phone_no=req.body.phone_no
-    }
-    if(req.body.rest_id!=null){
-        res.order.res_id=req.body.rest_id
-    }
-    if(req.body.menu_id!=null){
-        res.order.menu_id=req.body.menu_id
-    }
-    if(req.body.order_details!=null){
-        res.order.order_details=req.body.order_details
-    }
+    
     if(req.body.order_status!=null){
+        const previousStatus = res.order.order_status;
         res.order.order_status=req.body.order_status
+        if(req.body.order_status==='confirmed' ){
+            res.order.confirmed_at=Date.now()
+        }
+        res.order.order_status = req.body.order_status;
     }
-    if(req.body.user_deatils!=null){
-        res.order.user_deatils=req.body.user_deatils
-    }
-    if(req.body.total_price!=null){
-        res.order.total_price=req.body.total_price
-    }
-    if(req.body.alternative_phno!=null){
-        res.order.alternative_phno=req.body.alternative_phno
-    }
+  
     try{
         const updatedOrder=await res.order.save()
         res.status(200).json(updatedOrder)
