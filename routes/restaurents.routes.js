@@ -51,7 +51,7 @@ router.post('/',async(req,res) => {
         folder:"restaurent_images"
     })
 
-    const rest_upload=new Restaurents({
+    const rest_upload=new Restaurents({ 
         rest_name:req.body.rest_name,
         rest_image:result.secure_url
     })

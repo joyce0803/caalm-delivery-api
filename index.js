@@ -40,6 +40,9 @@ app.use('/cart',CartRoutes)
 const HostelRoutes=require('./routes/hostel.routes')
 app.use('/hostels',HostelRoutes)
 
+const CouponRoutes=require('./routes/coupon.routes')
+app.use('/coupons',CouponRoutes)
+
 const port=process.env.PORT||3000;
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
