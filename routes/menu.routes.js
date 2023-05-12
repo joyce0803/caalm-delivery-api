@@ -123,11 +123,11 @@ async function getMenuToDelete(req,res,next){
             return res.status(404).json({message:"No such dish available at the momentz"})
         }
     }
-    catch(err){
+    catch(err){  
         if(menu==undefined){
             return res.status(404).json({message:'No such dish available at the momentx'})
         }
-        return res.status(500).json({message:err.message})
+        return res.status(500).json({message:err.message})  
     }
     res.menu=menu
     next()

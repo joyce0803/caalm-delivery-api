@@ -12,7 +12,7 @@ cloudinary.config({
     api_key:'123954613469549',
     api_secret:'rvC66mX_CFuQFksACYI8iUja8tY'
 })  
-// router.use(cors())
+// router.use(cors()) 
 router.use(express.json({ extended: true }))
 router.use(bodyParser.json({ limit: "50mb" })); // support json encoded bodies
 router.use(
@@ -25,7 +25,7 @@ router.use(
 
 
 router.use(
-    fileUpload({
+    fileUpload({ 
       useTempFiles: true,
       tempFileDir: "/tmp/",
       limits: { fileSize: 50 * 1024 * 1024 },

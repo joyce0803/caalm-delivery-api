@@ -61,7 +61,7 @@ router.post('/',async(req,res) => {
             res.status(404).json({ message: "item not found" });
             return;
         }
-        const price = req.body.price;
+        const price = req.body.price; 
         const name = req.body.name;
 
         if(cart){ 

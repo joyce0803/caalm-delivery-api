@@ -17,7 +17,7 @@ router.get('/',async(req,res) => {
 
     try{
         const searchRegex=new RegExp(req.query.search,'i')
-        const order_list=await Orders.find(
+        const order_list=await Orders.find( 
             {
             $or:[
                 {ordered_items_name:searchRegex},
@@ -69,14 +69,14 @@ router.post('/',async(req,res) => {
         user_details:req.body.user_details,
         total_price:req.body.total_price,
         order_pin:Math.floor(100000+Math.random()*900000),
-        // timestamp:Date.now()
+        // timestamp:Date.now() 
 
     })
     try{
         const phone_no=req.body.phone_no
         const new_order=await order_upload.save()
-        const cart=await Cart.find({phone_no})
-        await Cart.findOneAndDelete(cart)
+        await Cart.deleteOne({owner:phone_no})
+        // await Cart.findOneAndDelete(cart)
          
         res.status(201).json(new_order)
     }
