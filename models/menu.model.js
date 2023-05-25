@@ -6,7 +6,7 @@ const MenuSchema=new mongoose.Schema({
     },
     dish_name:{
         type:String,
-        lowercase: true
+        capitalize: true
     },
     dish_price:{
         type:String

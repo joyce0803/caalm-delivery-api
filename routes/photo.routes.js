@@ -55,7 +55,6 @@ router.get('/:_id',getStory,async(req,res) => {
 
 router.post('/',async(req,res) => {
     const story=req.files.story
-    console.log(req.files.story)
     const story_result=await cloudinary.uploader.upload(story.tempFilePath, {
         public_id:`${Date.now()}`,
         resource_type:"auto",
